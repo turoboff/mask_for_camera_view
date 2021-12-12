@@ -1,4 +1,4 @@
-# box_in_camera
+# mask_for_camera_view
 
 Plugin to cut a portion of a picture from the camera.
 
