@@ -34,6 +34,7 @@ MaskForCameraView(
   appBarColor: Colors.red,
   bottomBarColor: Colors.red,
   takeButtonActionColor: Colors.red,
+  borderType: MaskForCameraViewBorderType.solid,
   boxBorderWidth: 3.8,
   boxBorderRadius: 3.2,
   onTake: (Uint8List imageBytes) {
