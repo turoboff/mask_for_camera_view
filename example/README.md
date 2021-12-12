@@ -8,9 +8,86 @@ This plugin works on Android & iOS.
 Used to crop an image from the camera section. Without any hassle, just use the BoxInCamera class to get a picture from its onTake(Uint8List) function.
 
 **Example App**
-<img src="example.gif" height="380" alt="example app"/>
+<img src="assets/example.gif" height="380" alt="example app"/>
 
-## Usege in **Android**
+**How to use dotted border**
+<img src="assets/1.png" height="380" alt="example app"/>
+
+```
+MaskForCameraView(
+  visiblePopButton: false,
+  onTake: (Uint8List imageBytes) {
+    // imageBytes is croped image, you can use it.
+  }
+);
+```
+
+**How to use solid border**
+<img src="assets/2.png" height="380" alt="example app"/>
+
+```
+MaskForCameraView(
+  visiblePopButton: false,
+  appBarColor: Colors.red,
+  bottomBarColor: Colors.red,
+  takeButtonActionColor: Colors.red,
+  boxBorderWidth: 3.8,
+  boxBorderRadius: 3.2,
+  onTake: (Uint8List imageBytes) {
+    // imageBytes is croped image, you can use it.
+  }
+);
+```
+
+**How to use Navigator.pop() button**
+<img src="assets/3.png" height="380" alt="example app"/>
+
+```
+MaskForCameraView(
+  visiblePopButton: true,
+  appBarColor: Colors.white,
+  bottomBarColor: Colors.white,
+  takeButtonActionColor: Colors.white,
+  takeButtonColor: Colors.black,
+  boxBorderColor: Colors.red,
+  iconsColor: Colors.black,
+  titleStyle: const TextStyle(
+    color: Colors.black,
+    fontSize: 18.0,
+    fontWeight: FontWeight.w800,
+  ),
+  boxBorderWidth: 2.8,
+  onTake: (Uint8List imageBytes) {
+    // imageBytes is croped image, you can use it.
+  }
+);
+```
+
+**Create your own style**
+<img src="assets/4.png" height="380" alt="example app"/>
+
+```
+MaskForCameraView(
+  visiblePopButton: false,
+  appBarColor: Colors.yellow,
+  bottomBarColor: Colors.yellow,
+  takeButtonActionColor: Colors.green,
+  takeButtonColor: Colors.white,
+  boxBorderColor: Colors.green,
+  iconsColor: Colors.white,
+  titleStyle: const TextStyle(
+    color: Colors.white,
+    fontSize: 18.0,
+    fontWeight: FontWeight.w800,
+  ),
+  boxBorderWidth: 3.8,
+  onTake: (Uint8List imageBytes) {
+    // imageBytes is croped image, you can use it.
+  }
+);
+```
+
+## Usege in Android
 
 In the **android/app/build.gradle** file, change
 
@@ -21,7 +98,7 @@ minSdkVersion 16
 to
 
 ```
-minSdkVersion 21.
+minSdkVersion 21
 ```
 
 In the **android/app/src/main/AndroidManifest.xml** file, add this
@@ -30,7 +107,7 @@ In the **android/app/src/main/AndroidManifest.xml** file, add this
 <uses-permission android:name="android.permission.CAMERA" />
 ```
 
-## Usage in **IOS**
+## Usage in IOS
 
 In the **ios/Runner/Info.plist** file, add this
 
@@ -44,7 +121,6 @@ In the **ios/Runner/Info.plist** file, add this
 ## For information
 
 **If you want to cut a picture yourself.**
-This function cuts the image only from the center of the image
 
 ```
 cropImage(
@@ -55,6 +131,8 @@ cropImage(
     screenWidth,
   );
 ```
+
+This function cuts the image only from the center of the image
 
 ## Usage
 
@@ -112,16 +190,18 @@ Full [example](https://github.com/turoboff/box_in_camera/tree/master/example) to
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:box_in_camera/box_in_camera.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await BoxInCamera.initialize();
-  runApp(MyApp());
+  await MaskForCameraView.initialize();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -129,18 +209,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: HomePage());
   }
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return BoxInCamera(
-        visiblePopButton: false,
-        onTake: (Uint8List imageBytes) {
-          // imageBytes is croped image, you can use it.
-        });
+    return MaskForCameraView(
+      visiblePopButton: false,
+      onTake: (Uint8List imageBytes) {
+        // imageBytes is croped image, you can use it.
+      }
+    );
   }
 }
 ```

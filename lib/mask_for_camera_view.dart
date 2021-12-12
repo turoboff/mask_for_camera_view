@@ -266,7 +266,6 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                             });
                             Uint8List? imageBytes = await _cropPicture();
 
-                            print("finish");
                             if (imageBytes == null) {
                               throw "Camera expansion is very small";
                             }
@@ -314,8 +313,6 @@ Future<Uint8List?> _cropPicture() async {
     _screenHeight!,
     _screenWidth!,
   );
-
-  print("image croped");
   return cropedImage;
 }
 
