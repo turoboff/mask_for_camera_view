@@ -40,7 +40,7 @@ MaskForCameraView(
 ```
 
 **How to use Navigator.pop() button**
-<br>
+/n
 <img src="assets/3.png" height="380" alt="example app"/>
 
 ```
