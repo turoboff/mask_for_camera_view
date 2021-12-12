@@ -1,0 +1,1 @@
+enum MaskForCameraViewBorderType { solid, dotted }
