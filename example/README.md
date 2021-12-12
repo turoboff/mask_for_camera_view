@@ -8,9 +8,11 @@ This plugin works on Android & iOS.
 Used to crop an image from the camera section. Without any hassle, just use the BoxInCamera class to get a picture from its onTake(Uint8List) function.
 
 **Example App**
+<br>
 <img src="assets/example.gif" height="380" alt="example app"/>
 
 **How to use dotted border**
+<br>
 <img src="assets/1.png" height="380" alt="example app"/>
 
 ```
@@ -23,6 +25,7 @@ MaskForCameraView(
 ```
 
 **How to use solid border**
+<br>
 <img src="assets/2.png" height="380" alt="example app"/>
 
 ```
@@ -40,6 +43,7 @@ MaskForCameraView(
 ```
 
 **How to use Navigator.pop() button**
+<br>
 <img src="assets/3.png" height="380" alt="example app"/>
 
 ```
@@ -64,6 +68,7 @@ MaskForCameraView(
 ```
 
 **Create your own style**
+<br>
 <img src="assets/4.png" height="380" alt="example app"/>
 
 ```
