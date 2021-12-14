@@ -9,11 +9,11 @@ Used to crop an image from the camera section. Without any hassle, just use the 
 
 **Example App**
 <br>
-<img src="assets/example.gif" height="380" alt="example app"/>
+<img src="https://github.com/turoboff/mask_for_camera_view/blob/master/assets/example.gif" height="380" alt="example app"/>
 
 **How to use dotted border**
 <br>
-<img src="assets/1.png" height="380" alt="example app"/>
+<img src="https://github.com/turoboff/mask_for_camera_view/blob/master/assets/1.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
@@ -26,7 +26,7 @@ MaskForCameraView(
 
 **How to use solid border**
 <br>
-<img src="assets/2.png" height="380" alt="example app"/>
+<img src="https://github.com/turoboff/mask_for_camera_view/blob/master/assets/2.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
@@ -45,7 +45,7 @@ MaskForCameraView(
 
 **How to use Navigator.pop() button**
 <br>
-<img src="assets/3.png" height="380" alt="example app"/>
+<img src="https://github.com/turoboff/mask_for_camera_view/blob/master/assets/3.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
@@ -70,7 +70,7 @@ MaskForCameraView(
 
 **Create your own style**
 <br>
-<img src="assets/4.png" height="380" alt="example app"/>
+<img src="https://github.com/turoboff/mask_for_camera_view/blob/master/assets/4.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
