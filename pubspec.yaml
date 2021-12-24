@@ -1,6 +1,6 @@
 name: mask_for_camera_view
-description: A new flutter plugin project.
-version: 0.0.3
+description: Crop section image from camera
+version: 0.0.4
 homepage: 'https://github.com/turoboff/mask_for_camera_view'
 
 environment:
