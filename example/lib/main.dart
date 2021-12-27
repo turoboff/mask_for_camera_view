@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                "Croped Image",
+                "Cropped Image",
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.w600,
