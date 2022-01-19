@@ -1,8 +1,10 @@
 import 'dart:async';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_inside_line.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_direction.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_position.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_result.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +34,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaskForCameraView(
       visiblePopButton: false,
-      onTake: (Uint8List imageBytes) => showModalBottomSheet(
+      insideLine: MaskForCameraViewInsideLine(
+        position: MaskForCameraViewInsideLinePosition.centerEnd,
+        direction: MaskForCameraViewInsideLineDirection.horizontal,
+      ),
+      onTake: (MaskForCameraViewResult res) => showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
         builder: (context) => Container(
@@ -44,7 +50,7 @@ class HomePage extends StatelessWidget {
               topRight: Radius.circular(14.0),
             ),
           ),
-          child: Column(
+          child: ListView(
             children: [
               const Text(
                 "Cropped Image",
@@ -56,7 +62,22 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 4.0),
               SizedBox(
                 width: double.infinity,
-                child: Image.memory(imageBytes),
+                child:
+                    res.image != null ? Image.memory(res.image!) : Container(),
+              ),
+              const SizedBox(height: 6.0),
+              SizedBox(
+                width: double.infinity,
+                child: res.firstHalfImage != null
+                    ? Image.memory(res.firstHalfImage!)
+                    : Container(),
+              ),
+              const SizedBox(height: 6.0),
+              SizedBox(
+                width: double.infinity,
+                child: res.secondHalfImage != null
+                    ? Image.memory(res.secondHalfImage!)
+                    : Container(),
               ),
             ],
           ),

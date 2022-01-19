@@ -171,7 +171,11 @@ MaskForCameraView(
     boxHeight: 168.0,
     boxBorderWidth: 1.8,
     boxBorderRadius: 3.2,
-    onTake: (Uint8List imageBytes) {},
+    onTake: (MaskForCameraViewResult res) {},
+    insideLine: MaskForCameraViewInsideLine(
+      position: MaskForCameraViewInsideLinePosition.centerEnd,
+      direction: MaskForCameraViewInsideLineDirection.horizontal,
+    ),
     borderType: MaskForCameraViewBorderType.dotted,
     visiblePopButton: true,
     appBarColor: Colors.black,
@@ -227,8 +231,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaskForCameraView(
       visiblePopButton: false,
-      onTake: (Uint8List imageBytes) {
-        // imageBytes is croped image, you can use it.
+      onTake: (MaskForCameraViewResult res) {
+        // res.image is croped image, you can use it.
       }
     );
   }

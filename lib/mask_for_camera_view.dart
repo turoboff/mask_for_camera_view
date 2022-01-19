@@ -5,9 +5,13 @@ import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_direction.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_position.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_result.dart';
 
 import 'crop_image.dart';
 import 'mask_for_camera_view_border_type.dart';
+import 'mask_for_camera_view_inside_line.dart';
 
 CameraController? _cameraController;
 List<CameraDescription>? _cameras;
@@ -19,6 +23,7 @@ double? _boxHeightForCrop;
 
 FlashMode _flashMode = FlashMode.auto;
 
+// ignore: must_be_immutable
 class MaskForCameraView extends StatefulWidget {
   MaskForCameraView({
     this.title = "Crop image from camera",
@@ -28,6 +33,7 @@ class MaskForCameraView extends StatefulWidget {
     this.boxBorderRadius = 3.2,
     required this.onTake,
     this.borderType = MaskForCameraViewBorderType.dotted,
+    this.insideLine,
     this.visiblePopButton = true,
     this.appBarColor = Colors.black,
     this.titleStyle = const TextStyle(
@@ -48,6 +54,7 @@ class MaskForCameraView extends StatefulWidget {
   double boxBorderWidth;
   double boxBorderRadius;
   bool visiblePopButton;
+  MaskForCameraViewInsideLine? insideLine;
   Color appBarColor;
   TextStyle titleStyle;
   Color boxBorderColor;
@@ -55,7 +62,7 @@ class MaskForCameraView extends StatefulWidget {
   Color takeButtonColor;
   Color takeButtonActionColor;
   Color iconsColor;
-  ValueSetter<Uint8List> onTake;
+  ValueSetter<MaskForCameraViewResult> onTake;
   MaskForCameraViewBorderType borderType;
   @override
   State<StatefulWidget> createState() => _MaskForCameraViewState();
@@ -127,7 +134,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                   MaskForCameraViewBorderType.dotted
                               ? widget.boxBorderColor
                               : Colors.transparent,
-                          dashPattern: [4, 3],
+                          dashPattern: const [4, 3],
                           radius: Radius.circular(
                             widget.boxBorderRadius,
                           ),
@@ -163,14 +170,38 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                   widget.boxBorderRadius,
                                 ),
                               ),
-                              child: isRunning &&
-                                      widget.boxWidth >= 50.0 &&
-                                      widget.boxHeight >= 50.0
-                                  ? Center(
-                                      child: CupertinoActivityIndicator(
-                                      radius: 12.8,
-                                    ))
-                                  : Container(),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: widget.insideLine != null &&
+                                                widget.insideLine!.direction ==
+                                                    null ||
+                                            widget.insideLine!.direction ==
+                                                MaskForCameraViewInsideLineDirection
+                                                    .horizontal
+                                        ? ((widget.boxHeight / 6) *
+                                            _position(
+                                                widget.insideLine!.position))
+                                        : 0.0,
+                                    bottom: 0.0,
+                                    right: 0.0,
+                                    left: widget.insideLine != null &&
+                                            widget.insideLine!.direction ==
+                                                MaskForCameraViewInsideLineDirection
+                                                    .vertical
+                                        ? ((widget.boxWidth / 6) *
+                                            _position(
+                                                widget.insideLine!.position))
+                                        : 0.0,
+                                    child: widget.insideLine != null
+                                        ? _insideLine(widget)
+                                        : Container(),
+                                  ),
+                                  Positioned(
+                                    child: _croppingLoad(isRunning, widget),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -184,7 +215,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
             right: 0.0,
             child: Container(
               color: widget.appBarColor,
-              padding: EdgeInsets.symmetric(horizontal: 6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 6.0),
               child: SafeArea(
                 child: SizedBox(
                   height: 54.0,
@@ -236,7 +267,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 12.0),
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
               decoration: BoxDecoration(
                 color: widget.bottomBarColor,
               ),
@@ -264,19 +295,20 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                             setState(() {
                               isRunning = true;
                             });
-                            Uint8List? imageBytes = await _cropPicture();
+                            MaskForCameraViewResult? res =
+                                await _cropPicture(widget.insideLine);
 
-                            if (imageBytes == null) {
+                            if (res == null) {
                               throw "Camera expansion is very small";
                             }
 
-                            widget.onTake(imageBytes);
+                            widget.onTake(res);
                             setState(() {
                               isRunning = false;
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.all(1.8),
+                            margin: const EdgeInsets.all(1.8),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
@@ -303,17 +335,19 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
   }
 }
 
-Future<Uint8List?> _cropPicture() async {
+Future<MaskForCameraViewResult?> _cropPicture(
+    MaskForCameraViewInsideLine? insideLine) async {
   XFile xFile = await _cameraController!.takePicture();
   File imageFile = File(xFile.path);
-  Uint8List? cropedImage = await cropImage(
+  MaskForCameraViewResult? result = await cropImage(
     imageFile.path,
     _boxHeightForCrop!.toInt(),
     _boxWidthForCrop!.toInt(),
     _screenHeight!,
     _screenWidth!,
+    insideLine,
   );
-  return cropedImage;
+  return result;
 }
 
 Widget iconButton(IconData icon, Color color, VoidCallback onTap) {
@@ -321,11 +355,101 @@ Widget iconButton(IconData icon, Color color, VoidCallback onTap) {
     borderRadius: BorderRadius.circular(22.0),
     onTap: () => onTap(),
     child: Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Icon(
         icon,
         color: color,
       ),
     ),
   );
+}
+
+Widget _insideLine(MaskForCameraView widget) {
+  if (widget.insideLine!.direction == null ||
+      widget.insideLine!.direction ==
+          MaskForCameraViewInsideLineDirection.horizontal) {
+    return Column(
+      children: [
+        _line(widget),
+      ],
+    );
+  }
+  return Row(
+    children: [
+      _line(widget),
+    ],
+  );
+}
+
+Widget _line(MaskForCameraView widget) => Container(
+      width: widget.insideLine!.direction == null ||
+              widget.insideLine!.direction ==
+                  MaskForCameraViewInsideLineDirection.horizontal
+          ? double.infinity
+          : widget.boxBorderWidth,
+      height: widget.insideLine!.direction != null &&
+              widget.insideLine!.direction ==
+                  MaskForCameraViewInsideLineDirection.vertical
+          ? double.infinity
+          : widget.boxBorderWidth,
+      color: widget.boxBorderColor,
+    );
+
+// class MySeparator extends StatelessWidget {
+//   final double height;
+//   final Color color;
+
+//   const MySeparator({this.height = 1, this.color = Colors.black});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return LayoutBuilder(
+//       builder: (BuildContext context, BoxConstraints constraints) {
+//         final boxWidth = constraints.constrainWidth();
+//         final dashWidth = 10.0;
+//         final dashHeight = height;
+//         final dashCount = (boxWidth / (2 * dashWidth)).floor();
+//         return Flex(
+//           children: List.generate(dashCount, (_) {
+//             return SizedBox(
+//               width: dashWidth,
+//               height: dashHeight,
+//               child: DecoratedBox(
+//                 decoration: BoxDecoration(color: color),
+//               ),
+//             );
+//           }),
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           direction: Axis.horizontal,
+//         );
+//       },
+//     );
+//   }
+// }
+
+Widget _croppingLoad(bool isRunning, MaskForCameraView widget) =>
+    isRunning && widget.boxWidth >= 50.0 && widget.boxHeight >= 50.0
+        ? const Center(
+            child: CupertinoActivityIndicator(
+              radius: 12.8,
+            ),
+          )
+        : Container();
+
+int _position(MaskForCameraViewInsideLinePosition? position) {
+  int p = 3;
+  if (position != null) {
+    if (position == MaskForCameraViewInsideLinePosition.start) {
+      p = 1;
+    } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
+      p = 2;
+    } else if (position == MaskForCameraViewInsideLinePosition.center) {
+      p = 3;
+    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
+      p = 4;
+    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+      p = 5;
+    }
+  }
+  return p;
 }

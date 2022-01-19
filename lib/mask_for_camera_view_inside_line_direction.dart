@@ -1,0 +1,1 @@
+enum MaskForCameraViewInsideLineDirection { horizontal, vertical }
