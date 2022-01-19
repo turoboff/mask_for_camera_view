@@ -179,7 +179,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                             widget.insideLine!.direction ==
                                                 MaskForCameraViewInsideLineDirection
                                                     .horizontal
-                                        ? ((widget.boxHeight / 6) *
+                                        ? ((widget.boxHeight / 8) *
                                             _position(
                                                 widget.insideLine!.position))
                                         : 0.0,
@@ -189,7 +189,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                             widget.insideLine!.direction ==
                                                 MaskForCameraViewInsideLineDirection
                                                     .vertical
-                                        ? ((widget.boxWidth / 6) *
+                                        ? ((widget.boxWidth / 8) *
                                             _position(
                                                 widget.insideLine!.position))
                                         : 0.0,
@@ -441,14 +441,18 @@ int _position(MaskForCameraViewInsideLinePosition? position) {
   if (position != null) {
     if (position == MaskForCameraViewInsideLinePosition.start) {
       p = 1;
-    } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
+    } else if (position == MaskForCameraViewInsideLinePosition.afterStart) {
       p = 2;
-    } else if (position == MaskForCameraViewInsideLinePosition.center) {
+    } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
       p = 3;
-    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
+    } else if (position == MaskForCameraViewInsideLinePosition.center) {
       p = 4;
-    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
       p = 5;
+    } else if (position == MaskForCameraViewInsideLinePosition.beforeEnd) {
+      p = 6;
+    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+      p = 7;
     }
   }
   return p;

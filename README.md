@@ -18,8 +18,8 @@ Used to crop an image from the camera section. Without any hassle, just use the 
 ```
 MaskForCameraView(
   visiblePopButton: false,
-  onTake: (Uint8List imageBytes) {
-    // imageBytes is croped image, you can use it.
+  onTake: (MaskForCameraViewResult res) {
+    // res.image is croped image, you can use it.
   }
 );
 ```
@@ -37,8 +37,8 @@ MaskForCameraView(
   borderType: MaskForCameraViewBorderType.solid,
   boxBorderWidth: 3.8,
   boxBorderRadius: 3.2,
-  onTake: (Uint8List imageBytes) {
-    // imageBytes is croped image, you can use it.
+  onTake: (MaskForCameraViewResult res) {
+    // res.image is croped image, you can use it.
   }
 );
 ```
@@ -62,8 +62,8 @@ MaskForCameraView(
     fontWeight: FontWeight.w800,
   ),
   boxBorderWidth: 2.8,
-  onTake: (Uint8List imageBytes) {
-    // imageBytes is croped image, you can use it.
+  onTake: (MaskForCameraViewResult res) {
+    // res.image is croped image, you can use it.
   }
 );
 ```
@@ -87,8 +87,8 @@ MaskForCameraView(
     fontWeight: FontWeight.w800,
   ),
   boxBorderWidth: 3.8,
-  onTake: (Uint8List imageBytes) {
-    // imageBytes is croped image, you can use it.
+  onTake: (MaskForCameraViewResult res) {
+    // res.image is croped image, you can use it.
   }
 );
 ```
@@ -157,7 +157,7 @@ Future<void> main() async {
 ```
 MaskForCameraView(
   visiblePopButton: false,
-  onTake: (Uint8List imageBytes) {
+  onTake: (MaskForCameraViewResult res) {
     // imageBytes is croped image, you can use it.
 });
 ```

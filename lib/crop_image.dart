@@ -63,11 +63,11 @@ Future<MaskForCameraViewResult> _cropHalfImage(
     y = 0;
     x = 0;
     w = image.width.toDouble();
-    h = (image.height / 6) * _position(insideLine.position);
+    h = (image.height / 8) * _position(insideLine.position);
   } else {
     y = 0;
     x = 0;
-    w = (image.width / 6) * _position(insideLine.position);
+    w = (image.width / 8) * _position(insideLine.position);
     h = image.height.toDouble();
   }
   Image firstCroppedImage =
@@ -78,13 +78,13 @@ Future<MaskForCameraViewResult> _cropHalfImage(
 
   if (insideLine.direction == null ||
       insideLine.direction == MaskForCameraViewInsideLineDirection.horizontal) {
-    y = (image.height / 6) * _position(insideLine.position);
+    y = (image.height / 8) * _position(insideLine.position);
     x = 0;
     w = image.width.toDouble();
     h = image.height - y;
   } else {
     y = 0;
-    x = (image.width / 6) * _position(insideLine.position);
+    x = (image.width / 8) * _position(insideLine.position);
     w = image.width - x;
     h = image.height.toDouble();
   }
@@ -105,14 +105,18 @@ int _position(MaskForCameraViewInsideLinePosition? position) {
   if (position != null) {
     if (position == MaskForCameraViewInsideLinePosition.start) {
       p = 1;
-    } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
+    } else if (position == MaskForCameraViewInsideLinePosition.afterStart) {
       p = 2;
-    } else if (position == MaskForCameraViewInsideLinePosition.center) {
+    } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
       p = 3;
-    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
+    } else if (position == MaskForCameraViewInsideLinePosition.center) {
       p = 4;
-    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
       p = 5;
+    } else if (position == MaskForCameraViewInsideLinePosition.beforeEnd) {
+      p = 6;
+    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+      p = 7;
     }
   }
   return p;
