@@ -184,7 +184,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                                 widget.insideLine!.direction ==
                                                     MaskForCameraViewInsideLineDirection
                                                         .horizontal
-                                        ? ((widget.boxHeight / 8) *
+                                        ? ((widget.boxHeight / 10) *
                                             _position(
                                                 widget.insideLine!.position))
                                         : 0.0,
@@ -194,7 +194,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                             widget.insideLine!.direction ==
                                                 MaskForCameraViewInsideLineDirection
                                                     .vertical
-                                        ? ((widget.boxWidth / 8) *
+                                        ? ((widget.boxWidth / 10) *
                                             _position(
                                                 widget.insideLine!.position))
                                         : 0.0,
@@ -442,7 +442,7 @@ Widget _croppingLoad(bool isRunning, MaskForCameraView widget) =>
         : Container();
 
 int _position(MaskForCameraViewInsideLinePosition? position) {
-  int p = 3;
+  int p = 5;
   if (position != null) {
     if (position == MaskForCameraViewInsideLinePosition.start) {
       p = 1;
@@ -450,14 +450,19 @@ int _position(MaskForCameraViewInsideLinePosition? position) {
       p = 2;
     } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
       p = 3;
-    } else if (position == MaskForCameraViewInsideLinePosition.center) {
+    } else if (position ==
+        MaskForCameraViewInsideLinePosition.beforeStartCenter) {
       p = 4;
-    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
+    } else if (position == MaskForCameraViewInsideLinePosition.center) {
       p = 5;
-    } else if (position == MaskForCameraViewInsideLinePosition.beforeEnd) {
+    } else if (position == MaskForCameraViewInsideLinePosition.afterCenterEnd) {
       p = 6;
-    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
       p = 7;
+    } else if (position == MaskForCameraViewInsideLinePosition.beforeEnd) {
+      p = 8;
+    } else if (position == MaskForCameraViewInsideLinePosition.end) {
+      p = 9;
     }
   }
   return p;

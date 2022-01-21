@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
     return MaskForCameraView(
       visiblePopButton: false,
       insideLine: MaskForCameraViewInsideLine(
-        position: MaskForCameraViewInsideLinePosition.centerEnd,
+        position: MaskForCameraViewInsideLinePosition.beforeEnd,
         direction: MaskForCameraViewInsideLineDirection.horizontal,
       ),
       cameraDescription: MaskForCameraViewCameraDescription.rear,
