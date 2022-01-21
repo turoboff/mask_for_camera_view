@@ -176,9 +176,10 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                     top: widget.insideLine != null &&
                                                 widget.insideLine!.direction ==
                                                     null ||
-                                            widget.insideLine!.direction ==
-                                                MaskForCameraViewInsideLineDirection
-                                                    .horizontal
+                                            widget.insideLine != null &&
+                                                widget.insideLine!.direction ==
+                                                    MaskForCameraViewInsideLineDirection
+                                                        .horizontal
                                         ? ((widget.boxHeight / 8) *
                                             _position(
                                                 widget.insideLine!.position))
