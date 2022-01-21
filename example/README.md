@@ -176,6 +176,7 @@ MaskForCameraView(
       position: MaskForCameraViewInsideLinePosition.centerEnd,
       direction: MaskForCameraViewInsideLineDirection.horizontal,
     ),
+    cameraDescription: MaskForCameraViewCameraDescription.rear,
     borderType: MaskForCameraViewBorderType.dotted,
     visiblePopButton: true,
     appBarColor: Colors.black,

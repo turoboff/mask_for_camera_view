@@ -1,0 +1,1 @@
+enum MaskForCameraViewCameraDescription { front, rear }

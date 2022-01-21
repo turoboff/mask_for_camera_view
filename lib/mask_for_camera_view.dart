@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_for_camera_view/mask_for_camera_view_camera_description.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_direction.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_position.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_result.dart';
@@ -32,6 +32,7 @@ class MaskForCameraView extends StatefulWidget {
     this.boxBorderWidth = 1.8,
     this.boxBorderRadius = 3.2,
     required this.onTake,
+    this.cameraDescription = MaskForCameraViewCameraDescription.rear,
     this.borderType = MaskForCameraViewBorderType.dotted,
     this.insideLine,
     this.visiblePopButton = true,
@@ -54,6 +55,7 @@ class MaskForCameraView extends StatefulWidget {
   double boxBorderWidth;
   double boxBorderRadius;
   bool visiblePopButton;
+  MaskForCameraViewCameraDescription cameraDescription;
   MaskForCameraViewInsideLine? insideLine;
   Color appBarColor;
   TextStyle titleStyle;
@@ -78,7 +80,9 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
   @override
   void initState() {
     _cameraController = CameraController(
-      _cameras![0],
+      widget.cameraDescription == MaskForCameraViewCameraDescription.rear
+          ? _cameras!.first
+          : _cameras!.last,
       ResolutionPreset.max,
       enableAudio: false,
     );
