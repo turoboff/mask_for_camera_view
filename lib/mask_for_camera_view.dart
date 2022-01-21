@@ -148,7 +148,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                   ? Colors.white60
                                   : Colors.transparent,
                               borderRadius:
-                                  BorderRadius.circular(widget.boxBorderWidth),
+                                  BorderRadius.circular(widget.boxBorderRadius),
                             ),
                             child: Container(
                               width: widget.borderType ==
