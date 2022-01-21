@@ -15,6 +15,7 @@ import 'mask_for_camera_view_inside_line.dart';
 
 CameraController? _cameraController;
 List<CameraDescription>? _cameras;
+GlobalKey _stickyKey = GlobalKey();
 
 double? _screenWidth;
 double? _screenHeight;
@@ -83,7 +84,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
       widget.cameraDescription == MaskForCameraViewCameraDescription.rear
           ? _cameras!.first
           : _cameras!.last,
-      ResolutionPreset.max,
+      ResolutionPreset.high,
       enableAudio: false,
     );
     super.initState();
@@ -104,9 +105,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
   @override
   Widget build(BuildContext context) {
     _screenWidth = MediaQuery.of(context).size.width;
-
-    _screenHeight =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    _screenHeight = MediaQuery.of(context).size.height;
     // _screenHeight = MediaQuery.of(context).size.height;
 
     _boxWidthForCrop = widget.boxWidth;
@@ -122,7 +121,24 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
             right: 0,
             child: !_cameraController!.value.isInitialized
                 ? Container()
-                : CameraPreview(_cameraController!),
+                : Column(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          key: _stickyKey,
+                          color: widget.appBarColor,
+                        ),
+                      ),
+                      CameraPreview(
+                        _cameraController!,
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: widget.bottomBarColor,
+                        ),
+                      )
+                    ],
+                  ),
           ),
           Positioned(
             top: 0.0,
@@ -337,11 +353,14 @@ Future<MaskForCameraViewResult?> _cropPicture(
     MaskForCameraViewInsideLine? insideLine) async {
   XFile xFile = await _cameraController!.takePicture();
   File imageFile = File(xFile.path);
+
+  RenderBox box = _stickyKey.currentContext!.findRenderObject() as RenderBox;
+  double size = box.size.height * 2;
   MaskForCameraViewResult? result = await cropImage(
     imageFile.path,
     _boxHeightForCrop!.toInt(),
     _boxWidthForCrop!.toInt(),
-    _screenHeight!,
+    _screenHeight! - size,
     _screenWidth!,
     insideLine,
   );
