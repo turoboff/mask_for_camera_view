@@ -87,11 +87,10 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
       enableAudio: false,
     );
     super.initState();
-    _cameraController!.initialize().then((_) {
+    _cameraController!.initialize().then((_) async {
       if (!mounted) {
         return;
       }
-
       setState(() {});
     });
   }
@@ -106,9 +105,8 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
   Widget build(BuildContext context) {
     _screenWidth = MediaQuery.of(context).size.width;
 
-    _screenHeight = MediaQuery.of(context).size.height -
-        (MediaQuery.of(context).padding.top + 54.0);
-
+    _screenHeight =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     // _screenHeight = MediaQuery.of(context).size.height;
 
     _boxWidthForCrop = widget.boxWidth;
@@ -124,95 +122,7 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
             right: 0,
             child: !_cameraController!.value.isInitialized
                 ? Container()
-                : Center(
-                    child: CameraPreview(
-                      _cameraController!,
-                      child: Center(
-                        child: DottedBorder(
-                          borderType: BorderType.RRect,
-                          strokeWidth: widget.borderType ==
-                                  MaskForCameraViewBorderType.dotted
-                              ? widget.boxBorderWidth
-                              : 0.0,
-                          color: widget.borderType ==
-                                  MaskForCameraViewBorderType.dotted
-                              ? widget.boxBorderColor
-                              : Colors.transparent,
-                          dashPattern: const [4, 3],
-                          radius: Radius.circular(
-                            widget.boxBorderRadius,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: isRunning
-                                  ? Colors.white60
-                                  : Colors.transparent,
-                              borderRadius:
-                                  BorderRadius.circular(widget.boxBorderRadius),
-                            ),
-                            child: Container(
-                              width: widget.borderType ==
-                                      MaskForCameraViewBorderType.solid
-                                  ? widget.boxWidth + widget.boxBorderWidth * 2
-                                  : widget.boxWidth,
-                              height: widget.borderType ==
-                                      MaskForCameraViewBorderType.solid
-                                  ? widget.boxHeight + widget.boxBorderWidth * 2
-                                  : widget.boxHeight,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: widget.borderType ==
-                                          MaskForCameraViewBorderType.solid
-                                      ? widget.boxBorderWidth
-                                      : 0.0,
-                                  color: widget.borderType ==
-                                          MaskForCameraViewBorderType.solid
-                                      ? widget.boxBorderColor
-                                      : Colors.transparent,
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  widget.boxBorderRadius,
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: widget.insideLine != null &&
-                                                widget.insideLine!.direction ==
-                                                    null ||
-                                            widget.insideLine != null &&
-                                                widget.insideLine!.direction ==
-                                                    MaskForCameraViewInsideLineDirection
-                                                        .horizontal
-                                        ? ((widget.boxHeight / 10) *
-                                            _position(
-                                                widget.insideLine!.position))
-                                        : 0.0,
-                                    bottom: 0.0,
-                                    right: 0.0,
-                                    left: widget.insideLine != null &&
-                                            widget.insideLine!.direction ==
-                                                MaskForCameraViewInsideLineDirection
-                                                    .vertical
-                                        ? ((widget.boxWidth / 10) *
-                                            _position(
-                                                widget.insideLine!.position))
-                                        : 0.0,
-                                    child: widget.insideLine != null
-                                        ? _insideLine(widget)
-                                        : Container(),
-                                  ),
-                                  Positioned(
-                                    child: _croppingLoad(isRunning, widget),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                : CameraPreview(_cameraController!),
           ),
           Positioned(
             top: 0.0,
@@ -331,6 +241,89 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0.0,
+            bottom: 0.0,
+            left: 0.0,
+            right: 0.0,
+            child: Center(
+              child: DottedBorder(
+                borderType: BorderType.RRect,
+                strokeWidth:
+                    widget.borderType == MaskForCameraViewBorderType.dotted
+                        ? widget.boxBorderWidth
+                        : 0.0,
+                color: widget.borderType == MaskForCameraViewBorderType.dotted
+                    ? widget.boxBorderColor
+                    : Colors.transparent,
+                dashPattern: const [4, 3],
+                radius: Radius.circular(
+                  widget.boxBorderRadius,
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isRunning ? Colors.white60 : Colors.transparent,
+                    borderRadius: BorderRadius.circular(widget.boxBorderRadius),
+                  ),
+                  child: Container(
+                    width:
+                        widget.borderType == MaskForCameraViewBorderType.solid
+                            ? widget.boxWidth + widget.boxBorderWidth * 2
+                            : widget.boxWidth,
+                    height:
+                        widget.borderType == MaskForCameraViewBorderType.solid
+                            ? widget.boxHeight + widget.boxBorderWidth * 2
+                            : widget.boxHeight,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: widget.borderType ==
+                                MaskForCameraViewBorderType.solid
+                            ? widget.boxBorderWidth
+                            : 0.0,
+                        color: widget.borderType ==
+                                MaskForCameraViewBorderType.solid
+                            ? widget.boxBorderColor
+                            : Colors.transparent,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        widget.boxBorderRadius,
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: widget.insideLine != null &&
+                                      widget.insideLine!.direction == null ||
+                                  widget.insideLine != null &&
+                                      widget.insideLine!.direction ==
+                                          MaskForCameraViewInsideLineDirection
+                                              .horizontal
+                              ? ((widget.boxHeight / 10) *
+                                  _position(widget.insideLine!.position))
+                              : 0.0,
+                          bottom: 0.0,
+                          right: 0.0,
+                          left: widget.insideLine != null &&
+                                  widget.insideLine!.direction ==
+                                      MaskForCameraViewInsideLineDirection
+                                          .vertical
+                              ? ((widget.boxWidth / 10) *
+                                  _position(widget.insideLine!.position))
+                              : 0.0,
+                          child: widget.insideLine != null
+                              ? _insideLine(widget)
+                              : Container(),
+                        ),
+                        Positioned(
+                          child: _croppingLoad(isRunning, widget),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
