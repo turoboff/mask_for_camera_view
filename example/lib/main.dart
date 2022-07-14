@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_camera_description.dart';
@@ -45,47 +46,63 @@ class HomePage extends StatelessWidget {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (context) => Container(
-          padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 14.0),
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 14.0),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(14.0),
-              topRight: Radius.circular(14.0),
+              topLeft: Radius.circular(26.0),
+              topRight: Radius.circular(26.0),
             ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                "Cropped Image",
+                "Cropped Images",
                 style: TextStyle(
-                  fontSize: 22.0,
+                  fontSize: 24.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 4.0),
-              SizedBox(
-                width: double.infinity,
-                child:
-                    res.image != null ? Image.memory(res.image!) : Container(),
-              ),
-              const SizedBox(height: 6.0),
-              SizedBox(
-                width: double.infinity,
-                child: res.firstHalfImage != null
-                    ? Image.memory(res.firstHalfImage!)
-                    : Container(),
-              ),
-              const SizedBox(height: 6.0),
-              SizedBox(
-                width: double.infinity,
-                child: res.secondHalfImage != null
-                    ? Image.memory(res.secondHalfImage!)
-                    : Container(),
-              ),
+              const SizedBox(height: 12.0),
+              res.image != null
+                  ? MyImageView(imageBytes: res.image!)
+                  : Container(),
+              const SizedBox(height: 8.0),
+              Row(
+                children: [
+                  res.firstHalfImage != null
+                      ? Expanded(
+                          child: MyImageView(imageBytes: res.firstHalfImage!))
+                      : Container(),
+                  res.firstHalfImage != null && res.secondHalfImage != null
+                      ? const SizedBox(width: 8.0)
+                      : Container(),
+                  res.secondHalfImage != null
+                      ? Expanded(
+                          child: MyImageView(imageBytes: res.secondHalfImage!))
+                      : Container(),
+                ],
+              )
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyImageView extends StatelessWidget {
+  const MyImageView({Key? key, required this.imageBytes}) : super(key: key);
+  final Uint8List imageBytes;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4.0),
+      child: SizedBox(
+        width: double.infinity,
+        child: Image.memory(imageBytes),
       ),
     );
   }
