@@ -115,6 +115,19 @@ In the **android/app/src/main/AndroidManifest.xml** file, add this
 
 ## Usage in IOS
 
+Upgrade Ios
+
+```
+ios 9
+```
+
+to
+
+```
+ios 10
+```
+
+
 In the **ios/Runner/Info.plist** file, add this
 
 ```

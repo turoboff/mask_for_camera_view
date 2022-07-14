@@ -103,26 +103,7 @@ Future<MaskForCameraViewResult> _cropHalfImage(
 int _position(MaskForCameraViewInsideLinePosition? position) {
   int p = 5;
   if (position != null) {
-    if (position == MaskForCameraViewInsideLinePosition.start) {
-      p = 1;
-    } else if (position == MaskForCameraViewInsideLinePosition.afterStart) {
-      p = 2;
-    } else if (position == MaskForCameraViewInsideLinePosition.startCenter) {
-      p = 3;
-    } else if (position ==
-        MaskForCameraViewInsideLinePosition.beforeStartCenter) {
-      p = 4;
-    } else if (position == MaskForCameraViewInsideLinePosition.center) {
-      p = 5;
-    } else if (position == MaskForCameraViewInsideLinePosition.afterCenterEnd) {
-      p = 6;
-    } else if (position == MaskForCameraViewInsideLinePosition.centerEnd) {
-      p = 7;
-    } else if (position == MaskForCameraViewInsideLinePosition.beforeEnd) {
-      p = 8;
-    } else if (position == MaskForCameraViewInsideLinePosition.end) {
-      p = 9;
-    }
+    p = position.index + 1;
   }
   return p;
 }

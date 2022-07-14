@@ -36,12 +36,13 @@ class HomePage extends StatelessWidget {
     return MaskForCameraView(
       visiblePopButton: false,
       insideLine: MaskForCameraViewInsideLine(
-        position: MaskForCameraViewInsideLinePosition.beforeEnd,
+        position: MaskForCameraViewInsideLinePosition.endPartThree,
         direction: MaskForCameraViewInsideLineDirection.horizontal,
       ),
       cameraDescription: MaskForCameraViewCameraDescription.rear,
       onTake: (MaskForCameraViewResult res) => showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (context) => Container(
           padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 14.0),
@@ -52,7 +53,8 @@ class HomePage extends StatelessWidget {
               topRight: Radius.circular(14.0),
             ),
           ),
-          child: ListView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
                 "Cropped Image",

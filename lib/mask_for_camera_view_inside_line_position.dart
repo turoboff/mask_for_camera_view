@@ -1,11 +1,11 @@
 enum MaskForCameraViewInsideLinePosition {
-  start,
-  afterStart,
-  startCenter,
-  beforeStartCenter,
+  partOne,
+  partTwo,
+  partThree,
+  partFour,
   center,
-  afterCenterEnd,
-  centerEnd,
-  beforeEnd,
-  end
+  endPartFour,
+  endPartThree,
+  endPartTwo,
+  endPartOne
 }
