@@ -19,7 +19,7 @@ Used to crop an image from the camera section. Without any hassle, just use the 
 MaskForCameraView(
   visiblePopButton: false,
   onTake: (MaskForCameraViewResult res) {
-    // res.image is croped image, you can use it.
+    // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
@@ -38,7 +38,7 @@ MaskForCameraView(
   boxBorderWidth: 3.8,
   boxBorderRadius: 3.2,
   onTake: (MaskForCameraViewResult res) {
-    // res.image is croped image, you can use it.
+    // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
@@ -63,7 +63,7 @@ MaskForCameraView(
   ),
   boxBorderWidth: 2.8,
   onTake: (MaskForCameraViewResult res) {
-    // res.image is croped image, you can use it.
+    // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
@@ -88,7 +88,7 @@ MaskForCameraView(
   ),
   boxBorderWidth: 3.8,
   onTake: (MaskForCameraViewResult res) {
-    // res.image is croped image, you can use it.
+    // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
@@ -115,7 +115,7 @@ In the **android/app/src/main/AndroidManifest.xml** file, add this
 
 ## Usage in IOS
 
-Upgrade Ios
+Upgrade Ios version
 
 ```
 ios 9
@@ -171,7 +171,7 @@ Future<void> main() async {
 MaskForCameraView(
   visiblePopButton: false,
   onTake: (MaskForCameraViewResult res) {
-    // imageBytes is croped image, you can use it.
+    // res.croppedImage is cropped image, you can use it.
 });
 ```
 
@@ -186,7 +186,7 @@ MaskForCameraView(
     boxBorderRadius: 3.2,
     onTake: (MaskForCameraViewResult res) {},
     insideLine: MaskForCameraViewInsideLine(
-      position: MaskForCameraViewInsideLinePosition.centerEnd,
+      position: MaskForCameraViewInsideLinePosition.eenter,
       direction: MaskForCameraViewInsideLineDirection.horizontal,
     ),
     cameraDescription: MaskForCameraViewCameraDescription.rear,
@@ -211,10 +211,7 @@ MaskForCameraView(
 Full [example](https://github.com/turoboff/box_in_camera/tree/master/example) to use.
 
 ```
-import 'dart:async';
 import 'dart:typed_data';
-
-import 'package:flutter/material.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view.dart';
 
 Future<void> main() async {
@@ -246,7 +243,7 @@ class HomePage extends StatelessWidget {
     return MaskForCameraView(
       visiblePopButton: false,
       onTake: (MaskForCameraViewResult res) {
-        // res.image is croped image, you can use it.
+        // res.croppedImage is cropped image, you can use it.
       }
     );
   }
