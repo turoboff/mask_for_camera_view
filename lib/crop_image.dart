@@ -47,7 +47,7 @@ Future<MaskForCameraViewResult?> cropImage(
   }
   List<int> croppedList = encodeJpg(croppedImage);
   Uint8List croppedBytes = Uint8List.fromList(croppedList);
-  res.image = croppedBytes;
+  res.croppedImage = croppedBytes;
   return res;
 }
 
@@ -95,7 +95,7 @@ Future<MaskForCameraViewResult> _cropHalfImage(
   List<int> secondCroppedList = encodeJpg(secondCroppedImage);
   Uint8List secondCroppedBytes = Uint8List.fromList(secondCroppedList);
   MaskForCameraViewResult res = MaskForCameraViewResult(
-      firstHalfImage: firstCroppedBytes, secondHalfImage: secondCroppedBytes);
+      firstPartImage: firstCroppedBytes, secondPartImage: secondCroppedBytes);
 
   return res;
 }

@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 class MaskForCameraViewResult {
   MaskForCameraViewResult(
-      {this.image, this.firstHalfImage, this.secondHalfImage});
-  Uint8List? image;
-  Uint8List? firstHalfImage;
-  Uint8List? secondHalfImage;
+      {this.croppedImage, this.firstPartImage, this.secondPartImage});
+  Uint8List? croppedImage;
+  Uint8List? firstPartImage;
+  Uint8List? secondPartImage;
 }

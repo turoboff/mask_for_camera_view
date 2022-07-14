@@ -65,22 +65,22 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12.0),
-              res.image != null
-                  ? MyImageView(imageBytes: res.image!)
+              res.croppedImage != null
+                  ? MyImageView(imageBytes: res.croppedImage!)
                   : Container(),
               const SizedBox(height: 8.0),
               Row(
                 children: [
-                  res.firstHalfImage != null
+                  res.firstPartImage != null
                       ? Expanded(
-                          child: MyImageView(imageBytes: res.firstHalfImage!))
+                          child: MyImageView(imageBytes: res.firstPartImage!))
                       : Container(),
-                  res.firstHalfImage != null && res.secondHalfImage != null
+                  res.firstPartImage != null && res.secondPartImage != null
                       ? const SizedBox(width: 8.0)
                       : Container(),
-                  res.secondHalfImage != null
+                  res.secondPartImage != null
                       ? Expanded(
-                          child: MyImageView(imageBytes: res.secondHalfImage!))
+                          child: MyImageView(imageBytes: res.secondPartImage!))
                       : Container(),
                 ],
               )
