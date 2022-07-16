@@ -50,9 +50,6 @@ MaskForCameraView(
 
 
 **How to use Navigator.pop() button**
-<br>
-<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/3.png" height="380" alt="example app"/>
-
 ```
 MaskForCameraView(
   visiblePopButton: true,
@@ -73,6 +70,9 @@ MaskForCameraView(
   }
 );
 ```
+
+<br>
+<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/3.png" height="380" alt="example app"/>
 
 
 **Create your own style**
@@ -97,7 +97,6 @@ MaskForCameraView(
   }
 );
 ```
-
 <br>
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/4.png" height="380" alt="example app"/>
 
