@@ -8,6 +8,9 @@ This plugin works on Android & iOS.
 Used to crop an image from the camera section. Without any hassle, just use the MaskForCameraView class to get a picture from its onTake(Uint8List) function.
 
 
+<br>
+<br>
+
 **Example App**
 <br>
 <br>
@@ -31,7 +34,8 @@ MaskForCameraView(
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/1.png" height="380" alt="example app"/>
 
 
-
+<br>
+<br>
 
 **How to use solid border**
 
@@ -51,6 +55,8 @@ MaskForCameraView(
 ```
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/2.png" height="380" alt="example app"/>
 
+<br>
+<br>
 
 **How to use Navigator.pop() button**
 ```
@@ -75,6 +81,8 @@ MaskForCameraView(
 ```
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/3.png" height="380" alt="example app"/>
 
+<br>
+<br>
 
 **Create your own style**
 
@@ -100,6 +108,8 @@ MaskForCameraView(
 ```
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/4.png" height="380" alt="example app"/>
 
+<br>
+<br>
 
 ## Usege in Android
 
