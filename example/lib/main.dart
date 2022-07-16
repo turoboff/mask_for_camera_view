@@ -40,6 +40,7 @@ class HomePage extends StatelessWidget {
         position: MaskForCameraViewInsideLinePosition.endPartThree,
         direction: MaskForCameraViewInsideLineDirection.horizontal,
       ),
+      boxBorderWidth: 2.6,
       cameraDescription: MaskForCameraViewCameraDescription.rear,
       onTake: (MaskForCameraViewResult res) => showModalBottomSheet(
         context: context,
