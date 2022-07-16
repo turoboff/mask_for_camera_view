@@ -1,4 +1,4 @@
-# Mask for camera plugin
+# mask_for_camera_view
 
 Plugin to cut a portion of a picture from the camera.
 
@@ -7,13 +7,18 @@ Plugin to cut a portion of a picture from the camera.
 This plugin works on Android & iOS.
 Used to crop an image from the camera section. Without any hassle, just use the MaskForCameraView class to get a picture from its onTake(Uint8List) function.
 
+
+<br>
+<br>
+
 **Example App**
 <br>
-<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/example.gif" height="380" alt="example app"/>
+<br>
+<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/example.gif" height="700" alt="example app"/>
+
+<br>
 
 **How to use dotted border**
-<br>
-<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/1.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
@@ -23,10 +28,11 @@ MaskForCameraView(
   }
 );
 ```
+<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/1.png" height="380" alt="example app"/>
+
+<br>
 
 **How to use solid border**
-<br>
-<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/2.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
@@ -42,11 +48,11 @@ MaskForCameraView(
   }
 );
 ```
+<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/2.png" height="380" alt="example app"/>
+
+<br>
 
 **How to use Navigator.pop() button**
-<br>
-<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/3.png" height="380" alt="example app"/>
-
 ```
 MaskForCameraView(
   visiblePopButton: true,
@@ -67,10 +73,11 @@ MaskForCameraView(
   }
 );
 ```
+<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/3.png" height="380" alt="example app"/>
+
+<br>
 
 **Create your own style**
-<br>
-<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/4.png" height="380" alt="example app"/>
 
 ```
 MaskForCameraView(
@@ -92,6 +99,9 @@ MaskForCameraView(
   }
 );
 ```
+<img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/4.png" height="380" alt="example app"/>
+
+<br>
 
 ## Usege in Android
 
