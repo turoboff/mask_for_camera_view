@@ -9,7 +9,7 @@ Used to crop an image from the camera section. Without any hassle, just use the 
 
 **Example App**
 <br>
-<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/example.gif" height="480" alt="example app"/>
+<img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/example.gif" height="640" alt="example app"/>
 
 **How to use dotted border**
 <br>
