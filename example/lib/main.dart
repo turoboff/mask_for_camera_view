@@ -84,7 +84,8 @@ class HomePage extends StatelessWidget {
                           child: MyImageView(imageBytes: res.secondPartImage!))
                       : Container(),
                 ],
-              )
+              ),
+              const SizedBox(height: 12.0),
             ],
           ),
         ),
