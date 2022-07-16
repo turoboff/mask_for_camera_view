@@ -7,10 +7,13 @@ Plugin to cut a portion of a picture from the camera.
 This plugin works on Android & iOS.
 Used to crop an image from the camera section. Without any hassle, just use the MaskForCameraView class to get a picture from its onTake(Uint8List) function.
 
+
 **Example App**
 <br>
 <br>
 <img src="https://github.com/turoboff/mask_for_camera_view/blob/c321233b544b97932ec512921b05bb325072b1c4/assets/example.gif" height="680" alt="example app"/>
+
+
 
 
 **How to use dotted border**
@@ -26,6 +29,8 @@ MaskForCameraView(
 
 <br>
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/1.png" height="380" alt="example app"/>
+
+
 
 
 **How to use solid border**
@@ -44,8 +49,6 @@ MaskForCameraView(
   }
 );
 ```
-
-<br>
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/2.png" height="380" alt="example app"/>
 
 
@@ -70,8 +73,6 @@ MaskForCameraView(
   }
 );
 ```
-
-<br>
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/3.png" height="380" alt="example app"/>
 
 
@@ -97,7 +98,6 @@ MaskForCameraView(
   }
 );
 ```
-<br>
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/4.png" height="380" alt="example app"/>
 
 
