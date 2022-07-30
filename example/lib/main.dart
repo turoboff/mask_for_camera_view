@@ -7,6 +7,7 @@ import 'package:mask_for_camera_view/mask_for_camera_view_inside_line.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_direction.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_position.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_result.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,7 +86,33 @@ class HomePage extends StatelessWidget {
                       : Container(),
                 ],
               ),
-              const SizedBox(height: 12.0),
+              const SizedBox(height: 20.0),
+              Container(
+                height: 48.0,
+                decoration: BoxDecoration(
+                  color: Colors.purple,
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      launch("https://pub.dev/packages/mask_for_camera_view");
+                    },
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: const Center(
+                      child: Text(
+                        "Find plugin on pub.dev",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

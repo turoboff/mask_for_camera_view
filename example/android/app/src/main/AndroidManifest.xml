@@ -4,7 +4,7 @@
 >
     <uses-permission android:name="android.permission.CAMERA" />
    <application
-    android:label="mask_for_camera_view_example"
+    android:label="Flutter Image Cropper"
     android:icon="@mipmap/ic_launcher"
   >
         <activity
