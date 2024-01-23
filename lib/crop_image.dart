@@ -1,7 +1,6 @@
-import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:camera/camera.dart';
 import 'package:image/image.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_inside_line.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_inside_line_direction.dart';
@@ -16,7 +15,7 @@ Future<MaskForCameraViewResult?> cropImage(
     double screenHeight,
     double screenWidth,
     MaskForCameraViewInsideLine? insideLine) async {
-  Uint8List imageBytes = await XFile(imagePath).readAsBytes();
+  Uint8List imageBytes = await File(imagePath).readAsBytes();
 
   Image? image = decodeImage(imageBytes);
 
@@ -38,8 +37,8 @@ Future<MaskForCameraViewResult?> cropImage(
   double w = cropWeight * increasedTimesW;
   double h = cropHeight * increasedTimesH;
 
-  Image croppedImage = copyCrop(image,
-      x: x.toInt(), y: y.toInt(), width: w.toInt(), height: h.toInt());
+  Image croppedImage =
+      copyCrop(image, x.toInt(), y.toInt(), w.toInt(), h.toInt());
   MaskForCameraViewResult res = MaskForCameraViewResult();
   if (insideLine != null) {
     MaskForCameraViewResult halfRes =
@@ -71,8 +70,8 @@ Future<MaskForCameraViewResult> _cropHalfImage(
     w = (image.width / 10) * _position(insideLine.position);
     h = image.height.toDouble();
   }
-  Image firstCroppedImage = copyCrop(image,
-      x: x.toInt(), y: y.toInt(), width: w.toInt(), height: h.toInt());
+  Image firstCroppedImage =
+      copyCrop(image, x.toInt(), y.toInt(), w.toInt(), h.toInt());
 
   List<int> firstCroppedList = encodeJpg(firstCroppedImage);
   Uint8List firstCroppedBytes = Uint8List.fromList(firstCroppedList);
@@ -90,8 +89,8 @@ Future<MaskForCameraViewResult> _cropHalfImage(
     h = image.height.toDouble();
   }
 
-  Image secondCroppedImage = copyCrop(image,
-      x: x.toInt(), y: y.toInt(), width: w.toInt(), height: h.toInt());
+  Image secondCroppedImage =
+      copyCrop(image, x.toInt(), y.toInt(), w.toInt(), h.toInt());
 
   List<int> secondCroppedList = encodeJpg(secondCroppedImage);
   Uint8List secondCroppedBytes = Uint8List.fromList(secondCroppedList);
