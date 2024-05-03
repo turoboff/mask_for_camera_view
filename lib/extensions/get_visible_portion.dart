@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:isolate';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 
@@ -15,7 +16,7 @@ Future<Image?> getVisiblePortion(
 
   Uint8List imgBytes = imageBytes ?? await imageFile!.readAsBytes();
 
-  Image? image = decodeImage(imgBytes);
+  Image? image = await Isolate.run<Image?>(() => decodeImage(imgBytes));
 
   if (image == null) {
     return null;
@@ -25,13 +26,14 @@ Future<Image?> getVisiblePortion(
 
   int y = (image.height ~/ 2) - (screenRectInimageSize.height ~/ 2);
   int x = (image.width ~/ 2) - (screenRectInimageSize.width ~/ 2);
-
-  Image croppedImage = copyCrop(
-    image,
-    x: x > 0 ? x : 0,
-    y: y > 0 ? y : 0,
-    width: screenRectInimageSize.width.toInt(),
-    height: screenRectInimageSize.height.toInt(),
+  Image croppedImage = await Isolate.run<Image>(
+    () => copyCrop(
+      image,
+      x: x > 0 ? x : 0,
+      y: y > 0 ? y : 0,
+      width: screenRectInimageSize.width.toInt(),
+      height: screenRectInimageSize.height.toInt(),
+    ),
   );
 
   return croppedImage;

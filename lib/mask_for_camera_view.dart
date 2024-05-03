@@ -70,9 +70,11 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
   void initState() {
     styles = widget.viewStyle ?? MaskForCameraViewStyle();
 
-    // SystemChrome.setPreferredOrientations([
-    //   DeviceOrientation.portraitUp,
-    // ]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
     cameraController = CameraController(
       widget.cameraDescription,
@@ -133,7 +135,14 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                       alignment: Alignment.center,
                       child: RotatedBox(
                         quarterTurns: getCameraOrientationQuarterTurns(),
-                        child: CameraPreview(cameraController),
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            child: CameraPreview(cameraController),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -382,8 +391,9 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
       required Size desiredSize}) async {
     RenderBox box = boxKey.currentContext!.findRenderObject() as RenderBox;
 
-    final rotatedImage =
-        await rotateImage(imageFile, angle: orientationQuarterTurns);
+    final iAngle = orientationQuarterTurns * 90;
+
+    final rotatedImage = await rotateImage(imageFile, angle: iAngle);
 
     if (rotatedImage == null) {
       return null;

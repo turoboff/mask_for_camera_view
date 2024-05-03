@@ -1,3 +1,4 @@
+import 'dart:isolate';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
@@ -13,27 +14,35 @@ Future<MaskForCameraViewResult> cropImage(Image image,
     MaskForCameraViewInsideLine? insideLine}) async {
   ui.Rect imageRect = flutterToImageRect(flutterBoxRect, image);
 
-  Image croppedImage = copyCrop(
-    image,
-    x: imageRect.left.toInt(),
-    y: imageRect.top.toInt(),
-    width: imageRect.width.toInt(),
-    height: imageRect.height.toInt(),
-  );
+  Image croppedImage = await Isolate.run<Image>(() => copyCrop(
+        image,
+        x: imageRect.left.toInt(),
+        y: imageRect.top.toInt(),
+        width: imageRect.width.toInt(),
+        height: imageRect.height.toInt(),
+      ));
 
-  Image resizedImage =
-      copyResize(croppedImage, width: desiredSize.width.toInt());
+  Uint8List resizedBytes = await Isolate.run<Uint8List>(() {
+    Image resizedImage =
+        copyResize(croppedImage, width: desiredSize.width.toInt());
 
-  List<int> resizedList = encodeJpg(resizedImage);
-  Uint8List resizedBytes = Uint8List.fromList(resizedList);
+    List<int> resizedList = encodeJpg(resizedImage);
+    return Uint8List.fromList(resizedList);
+  });
 
   MaskForCameraViewResult res =
       MaskForCameraViewResult(croppedImage: resizedBytes);
 
   if (insideLine != null) {
-    MaskForCameraViewResult halfRes = await _cropHalfImage(
-        croppedImage, insideLine,
-        desiredSize: desiredSize);
+    MaskForCameraViewResult halfRes =
+        await Isolate.run<MaskForCameraViewResult>(
+      () async => await _cropHalfImage(
+        croppedImage,
+        insideLine,
+        desiredSize: desiredSize,
+      ),
+    );
+
     res.copyFrom(halfRes);
   }
   return res;
