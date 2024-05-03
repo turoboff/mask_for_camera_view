@@ -2,7 +2,7 @@ group 'io.flutter.mask_for_camera_view'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.9.10'
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
         mavenCentral()
