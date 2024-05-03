@@ -6,4 +6,10 @@ class MaskForCameraViewResult {
   Uint8List? croppedImage;
   Uint8List? firstPartImage;
   Uint8List? secondPartImage;
+
+  void copyFrom(MaskForCameraViewResult newResult) {
+    croppedImage = newResult.croppedImage ?? croppedImage;
+    firstPartImage = newResult.firstPartImage ?? firstPartImage;
+    secondPartImage = newResult.secondPartImage ?? secondPartImage;
+  }
 }

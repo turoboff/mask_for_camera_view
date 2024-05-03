@@ -7,7 +7,6 @@ Plugin to cut a portion of a picture from the camera.
 This plugin works on Android & iOS.
 Used to crop an image from the camera section. Without any hassle, just use the MaskForCameraView class to get a picture from its onTake(Uint8List) function.
 
-
 <br>
 <br>
 
@@ -23,11 +22,14 @@ Used to crop an image from the camera section. Without any hassle, just use the 
 ```
 MaskForCameraView(
   visiblePopButton: false,
-  onTake: (MaskForCameraViewResult res) {
+  // [cameras.first] is rear camera.
+  cameraDescription: cameras.first,
+  onTake: (MaskForCameraViewResult? res) {
     // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
+
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/1.png" height="380" alt="example app"/>
 
 <br>
@@ -43,16 +45,20 @@ MaskForCameraView(
   borderType: MaskForCameraViewBorderType.solid,
   boxBorderWidth: 3.8,
   boxBorderRadius: 3.2,
-  onTake: (MaskForCameraViewResult res) {
+  // [cameras.first] is rear camera.
+  cameraDescription: cameras.first,
+  onTake: (MaskForCameraViewResult? res) {
     // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
+
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/2.png" height="380" alt="example app"/>
 
 <br>
 
 **How to use Navigator.pop() button**
+
 ```
 MaskForCameraView(
   visiblePopButton: true,
@@ -68,11 +74,14 @@ MaskForCameraView(
     fontWeight: FontWeight.w800,
   ),
   boxBorderWidth: 2.8,
-  onTake: (MaskForCameraViewResult res) {
+  // [cameras.first] is rear camera.
+  cameraDescription: cameras.first,
+  onTake: (MaskForCameraViewResult? res) {
     // res.croppedImage is cropped image, you can use it.
   }
 );
 ```
+
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/3.png" height="380" alt="example app"/>
 
 <br>
@@ -99,11 +108,12 @@ MaskForCameraView(
   }
 );
 ```
+
 <img src="https://raw.githubusercontent.com/turoboff/mask_for_camera_view/master/example/lib/assets/4.png" height="380" alt="example app"/>
 
 <br>
 
-## Usege in Android
+## Usage in Android
 
 In the **android/app/build.gradle** file, change
 
@@ -137,7 +147,6 @@ to
 ios 10
 ```
 
-
 In the **ios/Runner/Info.plist** file, add this
 
 ```
@@ -147,20 +156,6 @@ In the **ios/Runner/Info.plist** file, add this
 <string>Can I use the mic please?</string>
 ```
 
-## For information
-
-**If you want to cut a picture yourself.**
-
-```
-cropImage(
-    File("...").path,
-    cropHeight,
-    cropWidth,
-    screenHeight,
-    screenWidth,
-  );
-```
-
 This function cuts the image only from the center of the image
 
 ## Usage
@@ -168,11 +163,14 @@ This function cuts the image only from the center of the image
 **Initialize camera**
 
 ```
+late List<CameraDescription> cameras;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MaskForCameraView.initialize();
-  runApp(MyApp());
+  cameras = await MaskForCameraView.initialize();
+  runApp(const MyApp());
 }
+
 ```
 
 **Get image Uint8List**
@@ -180,7 +178,9 @@ Future<void> main() async {
 ```
 MaskForCameraView(
   visiblePopButton: false,
-  onTake: (MaskForCameraViewResult res) {
+  // [cameras.first] is rear camera.
+  cameraDescription: cameras.first,
+  onTake: (MaskForCameraViewResult? res) {
     // res.croppedImage is cropped image, you can use it.
 });
 ```
@@ -194,9 +194,11 @@ MaskForCameraView(
     boxHeight: 168.0,
     boxBorderWidth: 1.8,
     boxBorderRadius: 3.2,
-    onTake: (MaskForCameraViewResult res) {},
+    // [cameras.first] is rear camera.
+    cameraDescription: cameras.first,
+    onTake: (MaskForCameraViewResult? res) {},
     insideLine: MaskForCameraViewInsideLine(
-      position: MaskForCameraViewInsideLinePosition.eenter,
+      position: MaskForCameraViewInsideLinePosition.enter,
       direction: MaskForCameraViewInsideLineDirection.horizontal,
     ),
     cameraDescription: MaskForCameraViewCameraDescription.rear,
@@ -224,9 +226,11 @@ Full [example](https://github.com/turoboff/box_in_camera/tree/master/example) to
 import 'dart:typed_data';
 import 'package:mask_for_camera_view/mask_for_camera_view.dart';
 
+late List<CameraDescription> cameras;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MaskForCameraView.initialize();
+  cameras = await MaskForCameraView.initialize();
   runApp(const MyApp());
 }
 
@@ -252,7 +256,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaskForCameraView(
       visiblePopButton: false,
-      onTake: (MaskForCameraViewResult res) {
+     // [cameras.first] is rear camera.
+      cameraDescription: cameras.first,
+      onTake: (MaskForCameraViewResult? res) {
         // res.croppedImage is cropped image, you can use it.
       }
     );

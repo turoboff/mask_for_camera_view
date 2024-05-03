@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -54,16 +54,16 @@ android {
     signingConfigs {
         release {
             storeFile file("turoboff_keystore.jks")
-            storePassword ''
+            storePassword 'Firdavs2003'
             keyAlias 'key0'
-            keyPassword ''
+            keyPassword 'Firdavs2003'
         }
 
         debug {
             storeFile file("turoboff_keystore.jks")
-            storePassword ''
+            storePassword 'Firdavs2003'
             keyAlias 'key0'
-            keyPassword ''
+            keyPassword 'Firdavs2003'
         }
     }
 
