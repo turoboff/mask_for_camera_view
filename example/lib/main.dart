@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mask_for_camera_view/inside_line/mask_for_camera_view_inside_line.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view.dart';
-import 'package:mask_for_camera_view/mask_for_camera_view_result.dart';
+import 'package:mask_for_camera_view/state/mask_for_camera_view_state.dart';
 
 import 'show_bottom_sheet.dart';
 
@@ -44,8 +44,12 @@ class HomePage extends StatelessWidget {
       boxWidth: 993,
       // [cameras.first] is rear camera.
       cameraDescription: cameras.first,
-      onTake: (MaskForCameraViewResult? res) {
-        if (res != null) showOnTakeBottomSheet(context, res);
+      onChanged: (MaskForCameraViewState state) {
+        if (state is MaskForCameraViewOnCropped) {
+          if (state.result != null) {
+            showOnTakeBottomSheet(context, state.result!);
+          }
+        }
       },
     );
   }

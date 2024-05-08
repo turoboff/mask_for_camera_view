@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
@@ -13,8 +14,10 @@ import 'package:mask_for_camera_view/helpers/mask_for_camera_view_border_type.da
 import 'package:mask_for_camera_view/helpers/view_style.dart';
 import 'package:mask_for_camera_view/inside_line/mask_for_camera_view_inside_line.dart';
 import 'package:mask_for_camera_view/mask_for_camera_view_result.dart';
+import 'package:mask_for_camera_view/state/mask_for_camera_view_state.dart';
 
 export 'package:camera/camera.dart' show CameraDescription;
+export 'mask_for_camera_view_result.dart';
 
 // ignore: must_be_immutable
 class MaskForCameraView extends StatefulWidget {
@@ -26,7 +29,7 @@ class MaskForCameraView extends StatefulWidget {
     this.boxBorderWidth = 1.8,
     this.boxBorderRadius = 3.2,
     required this.cameraDescription,
-    required this.onTake,
+    required this.onChanged,
     this.borderType = MaskForCameraViewBorderType.dotted,
     this.insideLine,
     this.visiblePopButton = true,
@@ -46,7 +49,7 @@ class MaskForCameraView extends StatefulWidget {
   final CameraDescription cameraDescription;
   final MaskForCameraViewInsideLine? insideLine;
   final MaskForCameraViewStyle? viewStyle;
-  final ValueSetter<MaskForCameraViewResult?> onTake;
+  final ValueSetter<MaskForCameraViewState> onChanged;
   final MaskForCameraViewBorderType borderType;
   @override
   State<StatefulWidget> createState() => _MaskForCameraViewState();
@@ -59,6 +62,7 @@ class MaskForCameraView extends StatefulWidget {
 class _MaskForCameraViewState extends State<MaskForCameraView> {
   bool isRunning = false;
   int cameraRotation = 0;
+  bool takingIndicatorShown = false;
 
   late CameraController cameraController;
   GlobalKey boxKey = GlobalKey();
@@ -147,6 +151,12 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                     ),
                   ),
           ),
+          if (takingIndicatorShown)
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.white60),
+              ),
+            ),
           Positioned(
             top: 0.0,
             left: 0.0,
@@ -244,12 +254,32 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                               }
                               setState(() {
                                 isRunning = true;
+                                takingIndicatorShown = true;
                               });
 
                               XFile xFile =
                                   await cameraController.takePicture();
 
                               await cameraController.pausePreview();
+
+                              setState(() {
+                                takingIndicatorShown = false;
+                              });
+                              Timer(const Duration(milliseconds: 80), () {
+                                setState(() {
+                                  takingIndicatorShown = true;
+                                });
+                                Timer(
+                                  const Duration(milliseconds: 150),
+                                  () => setState(() {
+                                    takingIndicatorShown = false;
+                                  }),
+                                );
+                              });
+
+                              widget.onChanged(
+                                MaskForCameraViewOnTake(takenImage: xFile),
+                              );
 
                               MaskForCameraViewResult? res = await _cropPicture(
                                 File(xFile.path),
@@ -261,7 +291,9 @@ class _MaskForCameraViewState extends State<MaskForCameraView> {
                                     Size(widget.boxWidth, widget.boxHeight),
                               );
 
-                              widget.onTake(res);
+                              widget.onChanged(
+                                MaskForCameraViewOnCropped(result: res),
+                              );
 
                               await cameraController.resumePreview();
                               setState(() {
@@ -487,7 +519,8 @@ class _IsCropping extends StatelessWidget {
     return isRunning && widget.boxWidth >= 50.0 && widget.boxHeight >= 50.0
         ? const Center(
             child: CupertinoActivityIndicator(
-              radius: 12.8,
+              radius: 16.0,
+              color: Colors.black,
             ),
           )
         : Container();
