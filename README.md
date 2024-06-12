@@ -103,7 +103,7 @@ MaskForCameraView(
 
 <br>
 
-## Usege in Android
+## Usage in Android
 
 In the **android/app/build.gradle** file, change
 
